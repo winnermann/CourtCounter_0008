@@ -10,6 +10,46 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     int scoreTeamA=0;
     int scoreTeamB=0;
+
+
+
+    /**
+     * Следующие два метода onSaveInstanceState и onRestoreInstanceState
+     * не позволяют обнуляться значениям после поворота экрана.
+     */
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("scoreTeamA", scoreTeamA);
+        TextView teamAScore = (TextView) findViewById(R.id.team_a_score);
+        outState.putString("team_a", teamAScore.getText().toString());
+
+
+        outState.putInt("scoreTeamB", scoreTeamB);
+        TextView teamBScore = (TextView) findViewById(R.id.team_b_score);
+        outState.putString("team_b", teamBScore.getText().toString());
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        scoreTeamA = savedInstanceState.getInt("scoreTeamA", 0);
+        scoreTeamB = savedInstanceState.getInt("scoreTeamB", 0);
+
+        displayForTeamA(scoreTeamA);
+        displayForTeamB(scoreTeamB);
+
+    }
+
+
+
+
+
     //int resetScoreA;
     //int resetScoreB= scoreTeamB - scoreTeamB;
 
